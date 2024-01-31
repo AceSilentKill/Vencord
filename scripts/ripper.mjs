@@ -9,10 +9,10 @@ import { readdir } from "fs/promises";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 
-import { BUILD_TIMESTAMP, commonOpts, existsAsync, globPlugins, isDev, updaterDisabled, VERSION, watch } from "./build/common.mjs";
+import { BUILD_TIMESTAMP, commonOpts, existsAsync, globPlugins, isDev, isStandalone, updaterDisabled, VERSION, watch } from "./build/common.mjs";
 
 const defines = {
-    IS_STANDALONE: true, // isStandalone, // Removed to force standalone builds ;)
+    IS_STANDALONE: isStandalone,
     IS_DEV: JSON.stringify(isDev),
     IS_UPDATER_DISABLED: updaterDisabled,
     IS_WEB: false,

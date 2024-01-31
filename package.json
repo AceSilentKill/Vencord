@@ -29,7 +29,8 @@
         "testTsc": "tsc --noEmit",
         "uninject": "node scripts/runInstaller.mjs",
         "watch": "node --require=./scripts/suppressExperimentalWarnings.js scripts/build/build.mjs --watch",
-        "fuck": "node --require=./scripts/suppressExperimentalWarnings.js scripts/ripper.mjs"
+        "ripper": "node --require=./scripts/suppressExperimentalWarnings.js scripts/ripper.mjs",
+        "fuck": "pnpm ripper --standalone"
     },
     "dependencies": {
         "@sapphi-red/web-noise-suppressor": "0.3.3",
