@@ -52,9 +52,33 @@ function makeIcon(enabled?: boolean) {
     };
 }
 
+let buttonsObserver;
+
+function fixButtons() {
+    const btns = document.querySelector('[aria-label*="User area"]>*>[class*="flex_"][class*="horizontal__"][class*="justifyStart__"][class*="alignStretch_"][class*="noWrap__"]') || document.querySelector('section>[class*="flex_"][class*="horizontal__"][class*="justifyStart__"][class*="alignStretch_"][class*="noWrap__"]');
+    if (!btns) return;
+
+    if (buttonsObserver instanceof MutationObserver) buttonsObserver.disconnect();
+    buttonsObserver = new MutationObserver(() => {
+        let btns;
+
+        btns = document.querySelector('[aria-label*="User area"]>*>[class*="flex_"][class*="horizontal__"][class*="justifyStart__"][class*="alignStretch_"][class*="noWrap__"]'); // In User area
+        if (btns && btns.children.length > 4) {
+            if (typeof btns?.parentElement?.parentElement?.appendChild === "function") btns.parentElement.parentElement.appendChild(btns);
+            return;
+        }
+
+        btns = document.querySelector('[aria-label*="User area"]>[class*="flex_"][class*="horizontal__"][class*="justifyStart__"][class*="alignStretch_"][class*="noWrap__"]'); // Already moved
+        if (btns && btns.children.length < 5) {
+            const avatarWrapper = document.querySelector('div[class*="avatarWrapper_"][class*="withTagAsButton_"]:only-child');
+            if (avatarWrapper && ![...avatarWrapper.childNodes].includes(btns)) avatarWrapper.appendChild(btns);
+            return;
+        }
+    }).observe(btns, { subtree: true, childList: true, attributes: false });
+}
+
 function FakeVoiceOptionToggleButton() {
-    const btns = document.querySelector('[aria-label*="User area"]>*>[class*="flex_"][class*="horizontal__"][class*="justifyStart__"][class*="alignStretch_"][class*="noWrap__"]');
-    if (btns && btns.children.length > 4 && typeof btns?.parentElement?.parentElement?.appendChild === "function") btns.parentElement.parentElement.appendChild(btns);
+    fixButtons();
 
     return (
         <Button
@@ -62,6 +86,7 @@ function FakeVoiceOptionToggleButton() {
             icon={makeIcon(!faked)}
             role="switch"
             aria-checked={!faked}
+            aria-label="Fake voice options button"
             onClick={() => {
                 faked = !faked;
 
@@ -101,8 +126,14 @@ export default definePlugin({
     },
     start() {
         enableStyle(style);
+
+        fixButtons();
+        setTimeout(fixButtons, 2500);
     },
     stop() {
         disableStyle(style);
+
+        fixButtons();
+        setTimeout(fixButtons, 2500);
     }
 });
