@@ -25,11 +25,6 @@ function deafen() {
     if (deafenBtn) deafenBtn.click();
 }
 
-function openSettings() {
-    const settingsBtn = (document.querySelector('[aria-label="Deafen"]') as HTMLElement);
-    if (settingsBtn) settingsBtn.click();
-}
-
 const Button = findByCodeLazy("Button.Sizes.NONE,disabled:");
 
 function makeIcon(enabled?: boolean) {
@@ -58,23 +53,24 @@ function makeIcon(enabled?: boolean) {
 }
 
 function FakeVoiceOptionToggleButton() {
+    const btns = document.querySelector('[aria-label*="User area"]>*>[class*="flex_"][class*="horizontal__"][class*="justifyStart__"][class*="alignStretch_"][class*="noWrap__"]');
+    if (btns && btns.children.length > 4 && typeof btns?.parentElement?.parentElement?.appendChild === "function") btns.parentElement.parentElement.appendChild(btns);
+
     return (
-        <div className="button-container">
-            <Button
-                tooltipText={faked ? "Disable Fake Deafen/Mute/Cam" : "Enable Fake Deafen/Mute/Cam"}
-                icon={makeIcon(!faked)}
-                role="switch"
-                aria-checked={!faked}
-                onClick={() => {
-                    faked = !faked;
+        <Button
+            tooltipText={faked ? "Disable Fake Deafen/Mute/Cam" : "Enable Fake Deafen/Mute/Cam"}
+            icon={makeIcon(!faked)}
+            role="switch"
+            aria-checked={!faked}
+            onClick={() => {
+                faked = !faked;
 
-                    deafen();
-                    setTimeout(deafen, 200);
+                deafen();
+                setTimeout(deafen, 200);
 
-                    if (settings.store.muteOnFakeDeafen && faked) setTimeout(mute, 350);
-                }}
-            />
-        </div>
+                if (settings.store.muteOnFakeDeafen && faked) setTimeout(mute, 350);
+            }}
+        />
     );
 }
 

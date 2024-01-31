@@ -1,15 +1,14 @@
-[class*="withTagAsButton"] {
-    min-width: 88px;
+[class*="avatarWrapper_"][class*="withTagAsButton_"] {
+    min-width: 80px !important;
 }
 
-[class*="container-YkUktl"] div:nth-child(2) {
-    flex-wrap: wrap;
+[aria-label*="User area"]>[class*="container_"]>:only-child[class*="avatarWrapper_"][class*="withTagAsButton_"] {
+    min-width: 100% !important;
+    margin-right: 0px !important;
 }
 
-[class="container-YkUktl"] {
-    height: 69px;
-}
-
-.button-container {
-    margin-left: -18px;
+[aria-label*="User area"]>[class*="flex_"][class*="horizontal__"][class*="justifyStart__"][class*="alignStretch_"][class*="noWrap__"] {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 }
