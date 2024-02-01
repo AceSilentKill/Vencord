@@ -112,8 +112,6 @@ async function ensureBinary() {
     return outputFile;
 }
 
-
-
 const installerBin = await ensureBinary();
 
 console.log("Now running Installer...");

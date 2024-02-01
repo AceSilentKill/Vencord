@@ -5,6 +5,7 @@
  */
 
 import esbuild from "esbuild";
+import { readFileSync, writeFileSync } from "fs";
 import { readdir } from "fs/promises";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
@@ -199,4 +200,9 @@ await Promise.all([
 // New
 const DIST_DIR = join(dirname(fileURLToPath(import.meta.url)), "..", "dist");
 const RENDERER_PATH = join(DIST_DIR, "renderer.js");
+
+try {
+    writeFileSync(RENDERER_PATH, "// PAYLOAD\n" + readFileSync(RENDERER_PATH, "utf-8"));
+} catch { }
+
 console.log(`[RIPPER] renderer.js is at '${RENDERER_PATH}'`);
