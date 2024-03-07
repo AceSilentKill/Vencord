@@ -415,17 +415,14 @@ export const Devs = /* #__PURE__*/ Object.freeze({
         name: "coolelectronics",
         id: 696392247205298207n,
     },
-<<<<<<< HEAD
     Av32000: {
         name: "Av32000",
         id: 593436735380127770n,
-    }
-=======
+    },
     AceSilentKill: {
         name: "AceSilentKill",
         id: 526994842258112524n,
-    },
->>>>>>> a42f099 (Added FakeVoiceOptions Plugin)
+    }
 } satisfies Record<string, Dev>);
 
 // iife so #__PURE__ works correctly
