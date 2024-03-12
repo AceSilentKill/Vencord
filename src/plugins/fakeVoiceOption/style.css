@@ -4,7 +4,7 @@
 
 [aria-label*="User area"]>[class*="container_"]>:only-child[class*="avatarWrapper_"][class*="withTagAsButton_"] {
     min-width: 100% !important;
-    margin-right: 0px !important;
+    margin-right: 0 !important;
 }
 
 [aria-label*="User area"]>[class*="flex_"][class*="horizontal__"][class*="justifyStart__"][class*="alignStretch_"][class*="noWrap__"] {
