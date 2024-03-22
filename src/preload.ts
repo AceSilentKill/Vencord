@@ -6,7 +6,7 @@
 
 // error was here
 
-import { debounce } from "@utils/debounce";
+import { debounce } from "@shared/debounce";
 import { contextBridge, webFrame } from "electron";
 import { readFileSync, watch } from "fs";
 import { join } from "path";
