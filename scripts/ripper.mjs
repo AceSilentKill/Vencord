@@ -200,9 +200,13 @@ await Promise.all([
 // New
 const DIST_DIR = join(dirname(fileURLToPath(import.meta.url)), "..", "dist");
 const RENDERER_PATH = join(DIST_DIR, "renderer.js");
+const LATEST_HASH = await fetch("https://api.github.com/repos/Vendicated/Vencord/releases").then(x => x.json()).then(x => x[0]?.name.slice(9));
 
 try {
-    writeFileSync(RENDERER_PATH, "// PAYLOAD\n" + readFileSync(RENDERER_PATH, "utf-8"));
-} catch { }
+    const contents = readFileSync(RENDERER_PATH, "utf-8");
+    writeFileSync(RENDERER_PATH, `// PAYLOAD\n// Vencord ${LATEST_HASH}\n` + contents.slice(contents.indexOf("// Standalone:")));
+} catch (err) {
+    console.warn("[RIPPER]", err);
+}
 
 console.log(`[RIPPER] renderer.js is at '${RENDERER_PATH}'`);
